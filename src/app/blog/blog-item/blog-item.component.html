@@ -9,22 +9,22 @@
     <div *ngIf="isVisible">
         <div>
             <label for="title">Title</label>
-            <input type="string" name="title" id="title" required>
+            <input type="text" name="title" id="title" required>
         </div>
         <div>
             <label for="author">Author</label>
-            <input type="string" name="author" id="author" required>
+            <input type="text" name="author" id="author" required>
         </div>
         <div>
             <label for="description">Description</label>
-            <input type="string" name="description" id="description" required>
+            <input type="text" name="description" id="description" required>
         </div>
         <div>
             <label for="comments">Comment</label>
-            <input type="string" name="comments" id="comments" required>
+            <input type="text" name="comments" id="comments" required>
         </div>
         <div>
-            <button *ngIf="isVisible" (click)="onEdit()">Save</button>
+            <button (click)="onEdit()">Save</button>
         </div>
     </div>
 </div>
