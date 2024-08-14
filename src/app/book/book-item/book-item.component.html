@@ -1,0 +1,23 @@
+<div>
+    {{book.name}}
+    <p>{{book.author}}</p>
+    <p>{{book.isbn}}</p>
+    
+    <button (click)="toggleVisibility()">Edit</button>
+    <button style="margin-left: 15px;" (click)="onDelete()">Delete</button>
+    <div *ngIf="isVisible">
+        <label for="name">Title</label>
+        <input type="string" name="name" id="name" required>
+    </div>
+    <div *ngIf="isVisible">
+        <label for="author">Author</label>
+        <input type="string" name="author" id="author" required>
+    </div>
+    <div *ngIf="isVisible">
+        <label for="isbn">ISBN</label>
+        <input type="string" name="isbn" id="isbn" required>
+    </div>
+    <div>
+        <button *ngIf="isVisible" (click)="onEdit()">Save</button>
+    </div>
+</div>
