@@ -11,21 +11,21 @@ export class BlogService {
       title: 'Enjoy It',
       description: 'A lifestyle and DIY, full of tons of great inspiration for all things DIY.',
       author: 'Elise Cripe',
-      comments: 'I just really dig the way she thinks about and appreciates life, and love her style.'
+      comments: ['I just really dig the way she thinks about and appreciates life, and love her style.'],
     },
     {
       id: 2,
       title: 'Cupcakes & Cashmere',
       description: 'A lifestyle fashion blog, full of all sorts of great posts on everything from fashion/beauty to decor.',
       author: 'Emily Schuman',
-      comments: 'Her beauty tutorials are also always fascinating and spot-on.'
+      comments: ['Her beauty tutorials are also always fascinating and spot-on.'],
     },
     {
       id: 3,
       title: 'Advice from a Twenty Something',
       description: 'A lifestyle blog, full of “advice for the modern girl” on everything from fashion to beauty.',
       author: 'Amanda Holstein',
-      comments: 'She shares all sorts of helpful tutorials on all things stylish.'
+      comments: ['She shares all sorts of helpful tutorials on all things stylish.'],
     },
   ]
 

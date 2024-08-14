@@ -1,6 +1,6 @@
 <div>
     {{book.name}}
-    <p>{{book.author}}</p>
+    <p>{{book.authors}}</p>
     <p>{{book.isbn}}</p>
     
     <button (click)="toggleVisibility()">Edit</button>
@@ -11,8 +11,8 @@
             <input type="text" name="name" id="name" required>
         </div>
         <div>
-            <label for="author">Author</label>
-            <input type="text" name="author" id="author" required>
+            <label for="authors">Author</label>
+            <textarea name="authors" id="authors" rows = '1' required></textarea>
         </div>
         <div>
             <label for="isbn">ISBN</label>

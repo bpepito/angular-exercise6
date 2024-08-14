@@ -16,10 +16,12 @@ export class BookListComponent implements OnInit{
   }
 
   edit(id:number) {
+    const authorsText = (document.getElementById('authors') as HTMLTextAreaElement).value;
+    const authorsArray = authorsText.split('\n').map(author => author.trim()).filter(author => author !== '');
     const updatedBook : Book = {
       id: id,
       name: (document.getElementById('name') as HTMLInputElement).value,
-      author: (document.getElementById('author') as HTMLInputElement).value,
+      authors: authorsArray,
       isbn: (document.getElementById('isbn') as HTMLInputElement).value,
     }
     this.bookService.updateBook(updatedBook);
@@ -28,5 +30,4 @@ export class BookListComponent implements OnInit{
   delete(id:number) {
     this.books = this.books.filter(b => b.id !== id);
   }
-
 }

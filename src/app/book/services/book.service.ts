@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 export interface Book {
   id: number;
   name: string;
-  author: string;
+  authors: string[];
   isbn: string;
 }
 
@@ -16,19 +16,19 @@ export class BookService {
     {
       id: 1,
       name: 'The Five People You Meet in Heaven',
-      author: 'Mitch Albom',
+      authors: ['Mitch Albom'],
       isbn: '9780316726610'
     },
     {
       id: 2,
       name: 'Anxious People',
-      author: 'Fredrik Backman',
+      authors: ['Fredrik Backman'],
       isbn: '9786555321111'
     },
     {
       id: 3,
       name: 'How Do You Live?',
-      author: 'Genzaburo Yoshino',
+      authors: ['Genzaburo Yoshino'],
       isbn: '9781643753072'
     },
   ]

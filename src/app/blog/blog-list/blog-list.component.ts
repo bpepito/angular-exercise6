@@ -17,12 +17,14 @@ export class BlogListComponent implements OnInit{
   }
 
   edit(id:number) {
+    const commentsText = (document.getElementById('comments') as HTMLTextAreaElement).value;
+    const commentsArray = commentsText.split('\n').map(comment => comment.trim()).filter(comment => comment !== '');
     const updatedBlog : Blog = {
       id: id,
       title: (document.getElementById('title') as HTMLInputElement).value,
       description: (document.getElementById('description') as HTMLInputElement).value,
       author: (document.getElementById('author') as HTMLInputElement).value,
-      comments: (document.getElementById('comments') as HTMLInputElement).value,
+      comments: commentsArray,
     }
     this.blogService.updateBlog(updatedBlog);
   }
