@@ -12,17 +12,11 @@ export class BlogItemComponent {
   @Output() edit = new EventEmitter<number>();
   @Output() delete = new EventEmitter<number>();
 
-  isVisible = false;
-
-  onEdit(): void {
+  onEdit() {
     this.edit.emit(this.blog.id);
   }
 
-  onDelete(): void {
+  onDelete() {
     this.delete.emit(this.blog.id);
-  }
-
-  toggleVisibility = () => {
-    this.isVisible = !this.isVisible;
   }
 }

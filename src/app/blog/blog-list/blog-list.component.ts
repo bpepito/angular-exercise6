@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Blog } from '../blog';
 import { BlogService } from '../services/blog.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-blog-list',
@@ -8,28 +9,29 @@ import { BlogService } from '../services/blog.service';
   styleUrl: './blog-list.component.css'
 })
 export class BlogListComponent implements OnInit{
-  blogs:Blog[] = [];
+  blogs: Blog[] = [];
 
-  constructor(private blogService:BlogService) {}
+  constructor(private blogService: BlogService, private router: Router) {}
 
   ngOnInit(): void {
     this.blogs = this.blogService.getBlogs();
   }
 
-  edit(id:number) {
-    const commentsText = (document.getElementById('comments') as HTMLTextAreaElement).value;
-    const commentsArray = commentsText.split('\n').map(comment => comment.trim()).filter(comment => comment !== '');
-    const updatedBlog : Blog = {
-      id: id,
-      title: (document.getElementById('title') as HTMLInputElement).value,
-      description: (document.getElementById('description') as HTMLInputElement).value,
-      author: (document.getElementById('author') as HTMLInputElement).value,
-      comments: commentsArray,
-    }
-    this.blogService.updateBlog(updatedBlog);
+  edit(id: number): void {
+    this.router.navigate([`/blog/form`, id]);
   }
 
-  delete(id:number) {
-    this.blogs = this.blogs.filter(b => b.id !== id);
-  }  
+  delete(id: number): void {
+    this.blogService.deleteBlog(id);
+    this.blogs = this.blogService.getBlogs();
+  }
+
+  handleCommand(action: string): void {
+    if (action === 'add') {
+      this.router.navigate(['/blog/form']);
+    } else if (action === 'deleteAll') {
+      this.blogService.deleteAllBlogs();
+      this.blogs = [];
+    }
+  }
 }

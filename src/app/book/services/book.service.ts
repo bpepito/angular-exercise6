@@ -16,7 +16,7 @@ export class BookService {
     {
       id: 1,
       name: 'The Five People You Meet in Heaven',
-      authors: ['Mitch Albom'],
+      authors: ['Mitch Albom', 'Bernadette'],
       isbn: '9780316726610'
     },
     {
@@ -33,6 +33,8 @@ export class BookService {
     },
   ]
 
+  constructor() {}
+
   getBooks(): Book[] {
     return this.books;
   }
@@ -41,8 +43,25 @@ export class BookService {
     return this.books.find(b => b.id === id);
   }
 
-  updateBook(updatedBook:Book):void {
+  updateBook(updatedBook: Book):void {
     const index = this.books.findIndex(b => b.id === updatedBook.id);
-    this.books[index] = updatedBook;
+    if(index !== -1)
+      this.books[index] = updatedBook;
+  }
+
+  deleteBook(id: number): void {
+    this.books = this.books.filter(b => b.id !== id);
+  }
+
+  addBook(book: Book): void {
+    this.books.push(book);
+  }
+
+  deleteAllBooks(): void {
+    this.books = [];
+  }
+
+  getBookCount(): number {
+    return this.books.length;
   }
 }

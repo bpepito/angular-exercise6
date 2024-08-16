@@ -1,3 +1,5 @@
+<app-command-bar (actionEmitter)="handleCommand($event)"></app-command-bar>
+
 <div *ngFor="let blog of blogs">
     <app-blog-item [blog]="blog"
     (edit)="edit($event)"

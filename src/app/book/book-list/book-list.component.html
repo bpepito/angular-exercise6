@@ -1,9 +1,5 @@
+<app-command-bar (actionEmitter)="handleCommand($event)"></app-command-bar>
+
 <div *ngFor="let book of books">
-    <app-book-item [book]="book"
-    (edit)="edit($event)"
-    (delete)="delete($event)"></app-book-item>
-    <br><br>
+  <app-book-item [book]="book" (edit)="edit(book.id)" (delete)="delete(book.id)"></app-book-item>
 </div>
-
-
-

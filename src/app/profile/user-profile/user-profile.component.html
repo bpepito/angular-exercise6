@@ -1,23 +1,30 @@
-<form id="userForm">
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
     <div>
-        <label for="email">Email:</label>
-        <input type="string" id="email" name="email" required>
+      <label for="email">Email</label>
+      <input id="email" formControlName="email" type="email" class="form-control">
+      <div *ngIf="profileForm.get('email')?.invalid && profileForm.get('email')?.touched">
+      </div>
     </div>
-    <br>
     <div>
-        <label for="name">Name:</label>
-        <input type="string" id="name" name="name" required>
+      <label for="name">Name:</label>
+      <input id="name" formControlName="name" type="text" class="form-control">
+      <div *ngIf="profileForm.get('name')?.invalid && profileForm.get('name')?.touched">
+        Name is required.
+      </div>
     </div>
-    <br>
     <div>
-        <label for="bio">Bio:</label>
-        <input type="string" id="bio" name="bio" required>
+      <label for="bio">Bio:</label>
+      <input id="bio" formControlName="bio" class="form-control">
+      <div *ngIf="profileForm.get('bio')?.invalid && profileForm.get('bio')?.touched">
+        Bio is required.
+      </div>
     </div>
-    <br>
     <div>
-        <label for="active">Active:</label>
-        <input type="boolean" id="active" name="active" required>
+      <label for="active">Active:</label>
+      <select name="active" id="active" formControlName="active" class="form-control">
+        <option [value] = "true">Active</option>
+        <option [value] = "false">Inactive</option>
+      </select>
     </div>
-    <button onclick="addUser()">Add User</button>
-</form>
-
+  </form>
+  

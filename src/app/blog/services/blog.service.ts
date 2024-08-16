@@ -29,6 +29,8 @@ export class BlogService {
     },
   ]
 
+  constructor() {}
+
   getBlogs(): Blog[] {
     return this.blogs;
   }
@@ -37,8 +39,25 @@ export class BlogService {
     return this.blogs.find(b => b.id === id);
   }
 
-  updateBlog(updatedBlog:Blog):void {
+  updateBlog(updatedBlog: Blog):void {
     const index = this.blogs.findIndex(b => b.id === updatedBlog.id);
-    this.blogs[index] = updatedBlog;
+    if(index !== -1)
+      this.blogs[index] = updatedBlog;
+  }
+
+  deleteBlog(id: number): void {
+    this.blogs = this.blogs.filter(b => b.id !== id);
+  }
+
+  addBlog(blog: Blog): void {
+    this.blogs.push(blog);
+  }
+
+  deleteAllBlogs(): void {
+    this.blogs = [];
+  }
+
+  getBlogCount(): number {
+    return this.blogs.length;
   }
 }

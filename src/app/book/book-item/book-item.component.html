@@ -1,25 +1,8 @@
 <div>
-    {{book.name}}
-    <p>{{book.authors}}</p>
-    <p>{{book.isbn}}</p>
-    
-    <button (click)="toggleVisibility()">Edit</button>
-    <button style="margin-left: 15px;" (click)="onDelete()">Delete</button>
-    <div *ngIf="isVisible">
-        <div>
-            <label for="name">Title</label>
-            <input type="text" name="name" id="name" required>
-        </div>
-        <div>
-            <label for="authors">Author</label>
-            <textarea name="authors" id="authors" rows = '1' required></textarea>
-        </div>
-        <div>
-            <label for="isbn">ISBN</label>
-            <input type="text" name="isbn" id="isbn" required>
-        </div>
-        <div>
-            <button (click)="onEdit()">Save</button>
-        </div>
-    </div>
+  <h3>{{ book.name }}</h3>
+  <p>Authors: {{ book.authors.join(', ') }}</p>
+  <p>ISBN: {{ book.isbn }}</p>
+  <button (click)="onEdit()" class="btn btn-warning">Edit</button>
+  <button (click)="onDelete()" class="btn btn-danger">Delete</button>
 </div>
+
