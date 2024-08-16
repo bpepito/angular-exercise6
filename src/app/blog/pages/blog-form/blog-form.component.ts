@@ -52,7 +52,11 @@ export class BlogFormComponent implements OnInit{
   }
 
   removeComment(index: number): void {
-    this.comments.removeAt(index);
+    if (this.comments.length > 1) {
+      this.comments.removeAt(index);
+    } else {
+      console.log('Cannot remove the last comment');
+    }
   }
 
   onSubmit(): void {
@@ -60,7 +64,7 @@ export class BlogFormComponent implements OnInit{
       const formValue = this.blogForm.value;
       const blog: Blog = {
         id: this.blogId ?? this.blogService.getBlogCount() + 1,
-        title: formValue.name,
+        title: formValue.title,
         description: formValue.description,
         author: formValue.author,
         comments: formValue.comments
