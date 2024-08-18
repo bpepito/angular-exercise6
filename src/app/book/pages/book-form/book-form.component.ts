@@ -57,7 +57,7 @@ export class BookFormComponent implements OnInit {
     if (this.bookForm.valid) {
       const formValue = this.bookForm.value;
       const book: Book = {
-        id: this.bookId ?? this.bookService.getBookCount() + 1,
+        id: this.bookId ?? this.bookService.getBookCount(),
         name: formValue.name,
         authors: formValue.authors,
         isbn: formValue.isbn

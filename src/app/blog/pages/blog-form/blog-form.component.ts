@@ -52,29 +52,28 @@ export class BlogFormComponent implements OnInit{
   }
 
   removeComment(index: number): void {
-    if (this.comments.length > 1) {
+    if (this.comments.length > 1)
       this.comments.removeAt(index);
-    } else {
+    else
       console.log('Cannot remove the last comment');
-    }
   }
 
   onSubmit(): void {
     if (this.blogForm.valid) {
       const formValue = this.blogForm.value;
       const blog: Blog = {
-        id: this.blogId ?? this.blogService.getBlogCount() + 1,
+        id: this.blogId ?? this.blogService.getBlogCount(),
         title: formValue.title,
         description: formValue.description,
         author: formValue.author,
         comments: formValue.comments
       };
 
-      if (this.blogId) {
+      if (this.blogId)
         this.blogService.updateBlog(blog);
-      } else {
+      else
         this.blogService.addBlog(blog);
-      }
+      
       this.router.navigate(['/blog']);
     }
   }
