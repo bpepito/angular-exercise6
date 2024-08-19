@@ -11,7 +11,7 @@
     <br>
     <ng-container formArrayName="comments">
       <label for="comments">Comments</label>
-      <div class="input-group mb-3"  *ngFor="let comment of comments.controls; index as i">
+      <div class="input-group mb-3"  *ngFor="let comment of commentsFormArray.controls; index as i">
         <input [formControlName]="i" class="form-control">
         <button type="button" (click)="removeComment(i)" class="btn btn-danger">Remove</button>
       </div>

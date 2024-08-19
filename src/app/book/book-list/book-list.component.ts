@@ -35,8 +35,11 @@ export class BookListComponent implements OnInit {
     if (action === 'add') {
       this.router.navigate(['/book/form']);
     } else if (action === 'deleteAll') {
-      this.bookService.deleteAllBooks();
-      this.books = [];
+      this.bookService.deleteAllBooks().subscribe({
+        next: () => {
+          this.books = [];
+        }
+      });
     }
   }
 }

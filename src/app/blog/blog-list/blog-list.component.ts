@@ -14,7 +14,12 @@ export class BlogListComponent implements OnInit{
   constructor(private blogService: BlogService, private router: Router) {}
 
   ngOnInit(): void {
-    this.blogs = this.blogService.getBlogs();
+    this.loadBlogs();
+  }
+
+  loadBlogs(): void {
+    this.blogService.getBlogs()
+      .subscribe((blogs: Blog[]) => this.blogs = blogs);
   }
 
   edit(id: number): void {
@@ -22,16 +27,19 @@ export class BlogListComponent implements OnInit{
   }
 
   delete(id: number): void {
-    this.blogService.deleteBlog(id);
-    this.blogs = this.blogService.getBlogs();
+    this.blogService.deleteBlog(id)
+      .subscribe(() => console.log(this.loadBlogs()));
   }
 
   handleCommand(action: string): void {
     if (action === 'add') {
       this.router.navigate(['/blog/form']);
     } else if (action === 'deleteAll') {
-      this.blogService.deleteAllBlogs();
-      this.blogs = [];
+      this.blogService.deleteAllBlogs().subscribe({
+        next: () => {
+          this.blogs = [];
+        }
+      });
     }
   }
 }

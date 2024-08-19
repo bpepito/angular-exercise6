@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { BlogService } from '../../services/blog.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Blog } from '../../blog';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-blog-form',
@@ -12,6 +13,7 @@ import { Blog } from '../../blog';
 export class BlogFormComponent implements OnInit{
   blogForm!: FormGroup;
   blogId?: number;
+  commentsFormArray: FormArray;
 
   constructor(
     private fb: FormBuilder,
@@ -25,21 +27,23 @@ export class BlogFormComponent implements OnInit{
       author: new FormControl('', Validators.required),
       comments: this.fb.array([this.fb.control('', Validators.required)]),
     });
+    this.commentsFormArray = this.blogForm.controls['comments'] as FormArray;
   }
 
   ngOnInit(): void {
     this.blogId = Number(this.route.snapshot.paramMap.get('id'));
     if (this.blogId) {
-      const blog = this.blogService.getBlogById(this.blogId);
-      if (blog) {
-        this.blogForm.patchValue({
-          title: blog.title,
-          description: blog.description,
-          author: blog.author,
-        });
-        const comments = this.blogForm.get('comments') as FormArray;
-        blog.comments.forEach(comment => comments.push(this.fb.control(comment, Validators.required)));
-      }
+      const blog = this.blogService.getBlogById(this.blogId).subscribe({
+        next: (blog: Blog) => {
+          this.blogForm.patchValue({
+              title: blog.title,
+              description: blog.description,
+              author: blog.author
+            });
+            const comments = this.blogForm.get('comments') as FormArray;
+            blog.comments.forEach(comment => comments.push(this.fb.control(comment, Validators.required)));
+        }}
+      );
     }
   }
 
@@ -48,33 +52,34 @@ export class BlogFormComponent implements OnInit{
   }
 
   addComment(): void {
-    this.comments.push(this.fb.control('', Validators.required));
+    this.commentsFormArray.controls.push(new FormControl(''));
   }
 
   removeComment(index: number): void {
-    if (this.comments.length > 1)
-      this.comments.removeAt(index);
-    else
-      console.log('Cannot remove the last comment');
+    this.commentsFormArray.removeAt(index);
   }
 
   onSubmit(): void {
     if (this.blogForm.valid) {
       const formValue = this.blogForm.value;
       const blog: Blog = {
-        id: this.blogId ?? this.blogService.getBlogCount(),
+        id: this.blogId as number,
         title: formValue.title,
         description: formValue.description,
         author: formValue.author,
         comments: formValue.comments
       };
-
-      if (this.blogId)
-        this.blogService.updateBlog(blog);
-      else
-        this.blogService.addBlog(blog);
       
-      this.router.navigate(['/blog']);
+      const request = this.blogId
+        ? this.blogService.updateBlog(blog)
+        : this.blogService.addBlog(blog);
+      
+      request.subscribe({
+        next: () => {
+          this.router.navigate(['/blog']);
+        }
+      })
     }
   }
+
 }

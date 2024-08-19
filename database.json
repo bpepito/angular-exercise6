@@ -1,46 +1,41 @@
 {
-    "blogs": [
-        {
-          "id" : 1,
-          "title": "Enjoy It'",
-          "description": "A lifestyle and DIY, full of tons of great inspiration for all things DIY.",
-          "author": "Elise Cripe",
-          "comments": ["I just really dig the way she thinks about and appreciates life, and love her style."]
-        },
-        {
-          "id": 2,
-          "title": "Cupcakes & Cashmere",
-          "description": "A lifestyle fashion blog, full of all sorts of great posts on everything from fashion/beauty to decor.",
-          "author": "Emily Schuman",
-          "comments": ["Her beauty tutorials are also always fascinating and spot-on.", "Very Inspiring."]
-        },
-        {
-          "id": 3,
-          "title": "Advice from a Twenty Something",
-          "description": "A lifestyle blog, full of “advice for the modern girl” on everything from fashion to beauty.",
-          "author": "Amanda Holstein",
-          "comments": ["She shares all sorts of helpful tutorials on all things stylish."]
-        }
-    ],
-
-    "books" :  [
-        {
-          "id": 1,
-          "name": "The Five People You Meet in Heaven",
-          "authors": ["Mitch Albom", "Bernadette"],
-          "isbn": "9780316726610"
-        },
-        {
-          "id": 2,
-          "name": "Anxious People",
-          "authors": ["Fredrik Backman"],
-          "isbn": "9786555321111"
-        },
-        {
-          "id": 3,
-          "name": "How Do You Live?",
-          "authors": ["Genzaburo Yoshino"],
-          "isbn": "9781643753072"
-        }
-    ]
+  "blogs": [
+    {
+      "id": "2",
+      "title": "Cupcakes & Cashmere",
+      "description": "A lifestyle fashion blog, full of all sorts of great posts on everything from fashion/beauty to decor.",
+      "author": "Emily Schuman",
+      "comments": [
+        "Her beauty tutorials are also always fascinating and spot-on.",
+        "Very Inspiring."
+      ]
+    },
+    {
+      "id": "3",
+      "title": "Advice from a Twenty Something",
+      "description": "A lifestyle blog, full of “advice for the modern girl” on everything from fashion to beauty.",
+      "author": "Amanda Holstein",
+      "comments": [
+        "She shares all sorts of helpful tutorials on all things stylish."
+      ]
+    }
+  ],
+  "books": [
+    {
+      "id": "2",
+      "name": "Anxious People",
+      "authors": [
+        "Fredrik Backman"
+      ],
+      "isbn": "9786555321111"
+    },
+    {
+      "id": "3",
+      "name": "How Do You Live?",
+      "authors": [
+        "Genzaburo Yoshino"
+      ],
+      "isbn": "9781643753072"
+    }
+  ]
 }

@@ -42,7 +42,6 @@ export class BookFormComponent implements OnInit {
       );
     }
   }
-  
 
   get authors(): FormArray {
     return this.bookForm.get('authors') as FormArray;
