@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Book, BookService } from '../../services/book.service';
+import { BookService } from '../../services/book.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Book } from '../../book';
 
 
 @Component({
@@ -29,17 +30,19 @@ export class BookFormComponent implements OnInit {
   ngOnInit(): void {
     this.bookId = Number(this.route.snapshot.paramMap.get('id'));
     if (this.bookId) {
-      const book = this.bookService.getBookById(this.bookId);
-      if (book) {
-        this.bookForm.patchValue({
-          name: book.name,
-          isbn: book.isbn
-        });
-        const authors = this.bookForm.get('authors') as FormArray;
-        book.authors.forEach(author => authors.push(this.fb.control(author, Validators.required)));
-      }
+      const book = this.bookService.getBookById(this.bookId).subscribe({
+        next: (book: Book) => {
+          this.bookForm.patchValue({
+              name: book.name,
+              isbn: book.isbn
+            });
+            const authors = this.bookForm.get('authors') as FormArray;
+            book.authors.forEach(author => authors.push(this.fb.control(author, Validators.required)));
+        }}
+      );
     }
   }
+  
 
   get authors(): FormArray {
     return this.bookForm.get('authors') as FormArray;
@@ -50,25 +53,29 @@ export class BookFormComponent implements OnInit {
   }
 
   removeAuthor(index: number): void {
-    this.authors.removeAt(index);
+    if(this.authors.length > 1)
+      this.authors.removeAt(index);
   }
 
   onSubmit(): void {
     if (this.bookForm.valid) {
       const formValue = this.bookForm.value;
       const book: Book = {
-        id: this.bookId ?? this.bookService.getBookCount(),
+        id: this.bookId as number,
         name: formValue.name,
         authors: formValue.authors,
         isbn: formValue.isbn
       };
-
-      if (this.bookId) {
-        this.bookService.updateBook(book);
-      } else {
-        this.bookService.addBook(book);
-      }
-      this.router.navigate(['/book']);
+      
+      const request = this.bookId
+        ? this.bookService.updateBook(book)
+        : this.bookService.addBook(book);
+      
+      request.subscribe({
+        next: () => {
+          this.router.navigate(['/book']);
+        }
+      })
     }
   }
 }

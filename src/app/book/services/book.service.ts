@@ -1,67 +1,57 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable, tap } from 'rxjs';
+import { Book } from '../book';
 
-export interface Book {
-  id: number;
-  name: string;
-  authors: string[];
-  isbn: string;
-}
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class BookService {
-  books:Book[] = [
-    {
-      id: 1,
-      name: 'The Five People You Meet in Heaven',
-      authors: ['Mitch Albom', 'Bernadette'],
-      isbn: '9780316726610'
-    },
-    {
-      id: 2,
-      name: 'Anxious People',
-      authors: ['Fredrik Backman'],
-      isbn: '9786555321111'
-    },
-    {
-      id: 3,
-      name: 'How Do You Live?',
-      authors: ['Genzaburo Yoshino'],
-      isbn: '9781643753072'
-    },
-  ]
+  serverUrl = 'http://localhost:3000/book';
+  
+  constructor(private http: HttpClient) {}
 
-  constructor() {}
-
-  getBooks(): Book[] {
-    return this.books;
+  getBooks(): Observable<Book[]>{
+    return this.http.get<Book[]>(this.serverUrl).pipe(
+      tap(books => console.log('Fetched books:', books))
+    );
   }
 
-  getBookById(id:number): Book | undefined {
-    return this.books.find(b => b.id === id);
+  getBookById(id:number) {
+    const url = `${this.serverUrl}/${id}`;
+    return this.http.get<Book>(url).pipe(
+      tap(book => console.log(`Fetched book ${id}: `, book))
+    );
   }
 
-  updateBook(updatedBook: Book):void {
-    const index = this.books.findIndex(b => b.id === updatedBook.id);
-    if(index !== -1)
-      this.books[index] = updatedBook;
+  updateBook(updatedBook: Book) {
+    const url = `${this.serverUrl}/${updatedBook.id}`;
+    return this.http.put<Book>(url, updatedBook).pipe(
+      tap((book: Book) => console.log(`Updated book ${updatedBook.id} `, book))
+    );
   }
 
-  deleteBook(id: number): void {
-    this.books = this.books.filter(b => b.id !== id);
+  addBook(book: Book) {
+    return this.http.post<Book>(this.serverUrl, book).pipe(
+      tap((newBook: Book) => console.log('Adding a book ', newBook))
+    );
   }
 
-  addBook(book: Book): void {
-    this.books.push(book);
+  deleteBook(id: number) {
+    const url = `${this.serverUrl}/${id}`;
+    return this.http.delete<Book>(url).pipe(
+      tap(() => console.log(`Deleted book ${id}`))
+    );
   }
 
-  deleteAllBooks(): void {
-    this.books = [];
+  deleteAllBooks() {
+    this.http.delete<void>(this.serverUrl).pipe(
+      tap(() => console.log('Delete all books.'))
+    );
   }
 
-  getBookCount(): number {
-    return this.books.length;
-  }
 }
+export { Book };
+
