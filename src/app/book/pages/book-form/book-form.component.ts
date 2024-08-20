@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BookService } from '../../services/book.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Book } from '../../book';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -10,9 +11,10 @@ import { Book } from '../../book';
   templateUrl: './book-form.component.html',
   styleUrl: './book-form.component.css'
 })
-export class BookFormComponent implements OnInit {
+export class BookFormComponent implements OnInit, OnDestroy {
   bookForm: FormGroup;
   bookId?: number;
+  sub: Subscription | undefined;
 
   constructor(
     private fb: FormBuilder,
@@ -25,6 +27,9 @@ export class BookFormComponent implements OnInit {
       authors: this.fb.array([this.fb.control('', Validators.required)]),
       isbn: new FormControl('', Validators.required)
     });
+  }
+  ngOnDestroy(): void {
+    this.sub?.unsubscribe;
   }
 
   ngOnInit(): void {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BlogService } from '../../services/blog.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,10 +10,11 @@ import { Subscription } from 'rxjs';
   templateUrl: './blog-form.component.html',
   styleUrl: './blog-form.component.css'
 })
-export class BlogFormComponent implements OnInit{
+export class BlogFormComponent implements OnInit, OnDestroy {
   blogForm!: FormGroup;
   blogId?: number;
   commentsFormArray: FormArray;
+  sub: Subscription | undefined;
 
   constructor(
     private fb: FormBuilder,
@@ -28,6 +29,10 @@ export class BlogFormComponent implements OnInit{
       comments: this.fb.array([this.fb.control('', Validators.required)]),
     });
     this.commentsFormArray = this.blogForm.controls['comments'] as FormArray;
+  }
+
+  ngOnDestroy(): void {
+    this.sub?.unsubscribe;
   }
 
   ngOnInit(): void {

@@ -2,4 +2,5 @@
 
 <div *ngFor="let book of books">
   <app-book-item [book]="book" (edit)="edit(book.id)" (delete)="delete(book.id)"></app-book-item>
+  <br><br>
 </div>
