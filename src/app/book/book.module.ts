@@ -6,6 +6,7 @@ import { BookRoutingModule } from './book-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { BookFormComponent } from './pages/book-form/book-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MybplibraryModule } from 'mybplibrary';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     BookRoutingModule,
     SharedModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MybplibraryModule
   ]
 })
 export class BookModule { 

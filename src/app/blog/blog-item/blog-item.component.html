@@ -1,10 +1,14 @@
 <div>
-    <h3>{{ blog.title}}</h3>
-    <p>Author: {{ blog.author}}</p>
-    <p>Description: {{ blog.description }}</p>
-    <p>Comments: {{ blog.comments }}</p>
-    <button (click)="onEdit()" class="btn btn-warning">Edit</button>
-    <button (click)="onDelete()" class="btn btn-danger">Delete</button>
+    <lib-blog-card
+        [title]="blog.title"
+        [author]="blog.author"
+        [description]="blog.description"
+        [comments]="blog.comments">
+    </lib-blog-card>
+    <div class="button-container">
+        <button (click)="onEdit()" class="btn btn-warning">Edit</button>
+        <button (click)="onDelete()" class="btn btn-danger">Delete</button>
+    </div>
 </div>
 
 

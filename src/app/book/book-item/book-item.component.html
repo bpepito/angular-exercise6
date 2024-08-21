@@ -1,8 +1,12 @@
 <div>
-  <h3>{{ book.name }}</h3>
-  <p>Authors: {{ book.authors.join(', ') }}</p>
-  <p>ISBN: {{ book.isbn }}</p>
-  <button (click)="onEdit()" class="btn btn-warning">Edit</button>
-  <button (click)="onDelete()" class="btn btn-danger">Delete</button>
+  <lib-book-card
+    [name]="book.name"
+    [authors]="book.authors"
+    [isbn]="book.isbn">
+  </lib-book-card>
+  <div class="button-container">
+    <button (click)="onEdit()" class="btn btn-warning">Edit</button>
+    <button (click)="onDelete()" class="btn btn-danger">Delete</button>
+  </div>
 </div>
 

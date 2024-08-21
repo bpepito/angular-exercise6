@@ -6,6 +6,7 @@ import { BlogRoutingModule } from './blog-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { BlogFormComponent } from './pages/blog-form/blog-form.component';
+import { MybplibraryModule } from 'mybplibrary';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { BlogFormComponent } from './pages/blog-form/blog-form.component';
     CommonModule,
     BlogRoutingModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    MybplibraryModule
   ]
 })
 export class BlogModule { }
